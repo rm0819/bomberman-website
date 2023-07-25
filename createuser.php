@@ -1,4 +1,5 @@
 <?php
+#written by Matt Smith
 
 define( 'DVWA_WEB_PAGE_TO_ROOT', '' );
 require_once DVWA_WEB_PAGE_TO_ROOT . 'dvwa/includes/dvwaPage.inc.php';
@@ -7,7 +8,7 @@ dvwaPageStartup( array(  ) );
 
 dvwaDatabaseConnect();
 
-if( isset( $_POST[ 'createAccountButton' ] ) && dvwaCurrentUser() == 'user') {
+if( isset( $_POST[ 'createAccountButton' ] ) && dvwaIsLoggedIn()) {
 
     $user = $_POST[ 'newUsername' ];
 	$user = stripslashes( $user );
@@ -57,7 +58,7 @@ if( isset( $_POST[ 'createAccountButton' ] ) && dvwaCurrentUser() == 'user') {
         dvwaMessagePush( "Failed! Account: '{$user}' already exists" );   
     }
 }
-else {
+elseif (!dvwaIsLoggedIn()) {
 	dvwaMessagePush("Cannot create an account until you are logged in. >:)");
 }
 

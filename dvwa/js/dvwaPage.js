@@ -44,8 +44,3 @@ with (thisform) {
 function confirmClearGuestbook() {
 	return confirm("Are you sure you want to clear the guestbook?");
 }
-
-document.querySelector("#continueToSQL").addEventListener("click", e => {
-  document.querySelector('#congrats').classList.add("form--hidden");
-  document.querySelector('#container').classList.remove("form--hidden");
-});

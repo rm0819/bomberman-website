@@ -39,7 +39,7 @@ echo"
 </div>
 
 <div id=\"footer\">
-	<script src='" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/js/add_event_listeners.js'></script>
+	<script src='" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/js/congrats.js'></script>
 </div>
 ";
 

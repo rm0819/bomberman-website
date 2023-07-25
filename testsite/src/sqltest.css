@@ -31,6 +31,7 @@ body {
 
 .container,
 .form__input,
+.form--bottom-left,
 .form_button,
 .header_title,
 .form__normal-text {
@@ -49,6 +50,11 @@ body {
     color: black;
 }
 
+.form--bottom-left {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+}
 
 .body_padded {
     font-family: 'Asap', sans-serif;

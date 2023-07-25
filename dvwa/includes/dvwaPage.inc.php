@@ -494,6 +494,7 @@ function dvwaHtmlEchoSQL( $pPage ) {
 			</div>
 
 			<div id=\"footer\">
+				<button title=\"Wanna log out?\" id=\"logoutButton\" class=\"form__button form--bottom-left\" style=\"width:8%;\">Logout</button>
 				<script src='" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/js/add_event_listeners.js'></script>
 			</div>
 

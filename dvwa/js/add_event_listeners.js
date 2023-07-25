@@ -1,6 +1,9 @@
 // These functions need to be called after the content they reference
 // has been added to the page otherwise they will fail.
 
+
+
+
 function addEventListeners() {
 	var source_button = document.getElementById ("source_button");
 
@@ -28,10 +31,17 @@ function addEventListeners() {
 			newPopUp (url);
 		});
 	}
+
+
+	
+
+	
 }
+
+document.querySelector("#logoutButton").addEventListener("click", e => {
+	window.location.href = "../../login.php";
+});
 
 addEventListeners();
 
-document.querySelector("#continueToSQL").addEventListener("click", e => {
-	window.location.href = "index.php";
-});
+
