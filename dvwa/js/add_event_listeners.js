@@ -33,6 +33,5 @@ function addEventListeners() {
 addEventListeners();
 
 document.querySelector("#continueToSQL").addEventListener("click", e => {
-	document.querySelector('#congrats').classList.add("form--hidden");
-	document.querySelector('#container').classList.remove("form--hidden");
-  });
+	window.location.href = "index.php";
+});

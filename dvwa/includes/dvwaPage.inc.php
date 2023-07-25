@@ -438,6 +438,8 @@ function dvwaHtmlEchoSQL( $pPage ) {
 	Header( 'Content-Type: text/html;charset=utf-8' );     // TODO- proper XHTML headers...
 	Header( 'Expires: Tue, 23 Jun 2009 12:00:00 GMT' );    // Date in the past
 
+	$clicked = 0;
+
 	echo "<!DOCTYPE html>
 
 <html lang=\"en-GB\">
@@ -461,23 +463,7 @@ function dvwaHtmlEchoSQL( $pPage ) {
 	</head>
 
 	<body class=\"home\">
-
-		<div id=\"congrats\" class=\"container\" style=\"border: 5px solid var(--color-secondary);\">
-			<h2 class=\"form__normal-text\">Congrats!</h2>
-
-			<hr />
-		
-			<p class-\"form__normal-text\">
-				Good job! You did great getting this far. I'm kinda surprised you're here.... tbh... <br>Well, 
-				if you want to keep going, I would try getting the password to the admin account. (Hint: the query function on the next page isn't very tolerant of injections)
-				<br> Click the button below to continue!
-			</p>
-
-			<button title=\"Please click me\" id=\"continueToSQL\" class=\"form__button\" style=\"width:25%;\">Click me!</button>
-			
-		</div>
-
-		<div id=\"container\" class=\"container form--hidden\" style=\"border: 5px solid var(--color-secondary);\">
+		<div id=\"container\" class=\"container\" style=\"border: 5px solid var(--color-secondary);\">
 
 			<div id=\"header\">
 
