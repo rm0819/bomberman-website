@@ -4,7 +4,7 @@
 define( 'DVWA_WEB_PAGE_TO_ROOT', '../../' );
 require_once DVWA_WEB_PAGE_TO_ROOT . 'dvwa/includes/dvwaPage.inc.php';
 
-dvwaPageStartup( array( 'authenticated' ) );
+dvwaPageStartup( array( 'admin' ) );
 
 echo"
 <!DOCTYPE html>
@@ -23,23 +23,7 @@ echo"
 
 </head>
 
-<div id=\"congrats\" class=\"container\" style=\"border: 5px solid var(--color-secondary);\">
-
-	<h2 class=\"form__normal-text\">Congrats!</h2>
-
-	<hr />
-		
-	<p class-\"form__normal-text\">
-		Good job! You did great getting this far. I'm kinda surprised you're here.... tbh... <br>Well, 
-		if you want to keep going, I would try getting the password to the admin account. (Hint: the query function on the next page isn't very tolerant of injections)
-		<br> Click the button below to continue!
-	</p>
-
-	<button title=\"Please click me\" id=\"continueToSQL\" class=\"form__button\" style=\"width:25%;\">Click me!</button>
-			
-</div>
-
-<div id=\"whoa\" class=\"container form--hidden\" style=\"border: 5px solid var(--color-secondary);\">
+<div id=\"whoa\" class=\"container\" style=\"border: 5px solid var(--color-secondary);\">
 
 	<h2 class=\"form__normal-text\">Whoa!</h2>
 
@@ -53,7 +37,7 @@ echo"
 
 	<br />
 
-	<a title=\"Please, please click me\" class=\"form__button\" style=\"text-decoration:none;\" href=\"../../information/usernames.txt\" download>Click me please!</a>
+	<a title=\"Please, please click me\" class=\"form__button\" style=\"text-decoration:none;\" href=\"../../information/prize.txt\" download>Click me please!</a>
 			
 </div>
 

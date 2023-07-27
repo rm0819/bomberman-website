@@ -80,6 +80,10 @@ function &dvwaSessionGrab() {
 	return $_SESSION[ 'dvwa' ];
 }
 
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+
 
 function dvwaPageStartup( $pActions ) {
 	if (in_array('authenticated', $pActions)) {
@@ -93,6 +97,10 @@ function dvwaPageStartup( $pActions ) {
 		if( !dvwaIsLoggedIn() || (dvwaCurrentUser() != 'admin')) {
 			dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'login.php' );
 		}
+	}
+
+	if( in_array('s', $pActions)) {
+		dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'login.php' );
 	}
 }
 

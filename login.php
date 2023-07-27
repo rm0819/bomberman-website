@@ -43,9 +43,16 @@ if( isset( $_POST[ 'Login' ] ) ) {
 	$resultArray = $result->fetch_array();
 	
 	if( $result && mysqli_num_rows( $result ) == 1 ) {    // Login Successful...
-		dvwaMessagePush( "You have logged in as '{$user}'" );
-		dvwaLogin( $user );
-		dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'vulnerabilities/sqli/congrats.php' );
+		if( $user == 'admin') {
+			dvwaMessagePush( "You have logged in as '{$user}'" );
+			dvwaLogin( $user );
+			dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'vulnerabilities/sqli/final-congrats.php' );
+		}
+		else {
+			dvwaMessagePush( "You have logged in as '{$user}'" );
+			dvwaLogin( $user );
+			dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'vulnerabilities/sqli/congrats.php' );
+		}
 	}
 	else {
 		$query  = "SELECT * FROM `users` WHERE user='$user';";
