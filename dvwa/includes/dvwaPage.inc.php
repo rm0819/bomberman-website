@@ -87,6 +87,13 @@ function dvwaPageStartup( $pActions ) {
 			dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'login.php' );
 		}
 	}
+
+	// if they aren't admin...
+	if( in_array('admin', $pActions)) {
+		if( !dvwaIsLoggedIn() || (dvwaCurrentUser() != 'admin')) {
+			dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'login.php' );
+		}
+	}
 }
 
 function dvwaLogin( $pUsername ) {
@@ -440,6 +447,15 @@ function dvwaHtmlEchoSQL( $pPage ) {
 
 	$clicked = 0;
 
+
+	if( isset( $_POST[ 'logout' ] ) ) {
+		dvwaLogout();
+		dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'login.php' );
+	}
+	if( isset( $_POST[ 'security' ] ) ) {
+		dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'security.php' );
+	}
+
 	echo "<!DOCTYPE html>
 
 <html lang=\"en-GB\">
@@ -493,10 +509,15 @@ function dvwaHtmlEchoSQL( $pPage ) {
 				{$systemInfoHtml}
 			</div>
 
-			<div id=\"footer\">
-				<button title=\"Wanna log out?\" id=\"logoutButton\" class=\"form__button form--bottom-left\" style=\"width:8%;\">Logout</button>
-				<script src='" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/js/add_event_listeners.js'></script>
-			</div>
+			<form method=\"post\">
+				<div id=\"footer\">
+					<div align=\"right\">
+						<input title=\"Change the difficulty\" class=\"\" type=\"submit\" value=\"Too easy?\" name=\"security\" />
+					</div>
+					<input title=\"Wanna log out?\" type=\"submit\" name=\"logout\" value=\"Logout\" class=\"form__button form--bottom-left\" style=\"width:8%;text-align:center\"/>
+					<script src='" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/js/add_event_listeners.js'></script>
+				</div>
+			</form>
 
 		</div>
 

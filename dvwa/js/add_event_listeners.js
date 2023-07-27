@@ -3,7 +3,6 @@
 
 
 
-
 function addEventListeners() {
 	var source_button = document.getElementById ("source_button");
 
@@ -37,10 +36,6 @@ function addEventListeners() {
 
 	
 }
-
-document.querySelector("#logoutButton").addEventListener("click", e => {
-	window.location.href = "../../login.php";
-});
 
 addEventListeners();
 
