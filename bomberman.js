@@ -43,6 +43,7 @@ wallCtx.fillRect(0, 0, grid - 2, grid - 2);
 wallCtx.fillStyle = '#a9a9a9';
 wallCtx.fillRect(2, 2, grid - 4, grid - 4);
 
+/*
 // create a new canvas and draw the extra bomb powerup. then we can use
 // this canvas to draw the images later on
 const extraBombPowerUpCanvas = document.createElement('canvas');
@@ -51,6 +52,7 @@ extraBombPowerUpCanvas.width = extraBombPowerUpCanvas.height = grid;
 
 extraBombPowerUpImage = new Image();
 extraBombPowerUpImage.src = 'src/SB_Extra_Bomb.png';
+*/
 
 // create a mapping of object types
 const types = {
@@ -281,15 +283,39 @@ function Explosion(row, col, dir, center) {
   };
 }
 
-function SpawnPowerUps(row, col) {
+// Power up constructor
+function PowerUp(row, col, type) {
   this.row = row;
   this.col = col;
+  this.type = type;
 
+  extraBombPowerUpImage = new Image();
+  extraBombPowerUpImage.src = 'src/SB_Extra_Bomb.png';
 
+  //col * grid, row * grid
+  // extra bomb
+  if (type == 3) {
+    //entities.push(new PowerUp);
+  }
+  // fire power
+  else {
+    return;
+  }
+
+  this.render = function() {
+    const x = this.col * grid;
+    const y = this.row * grid;
+
+    context.drawImage(extraBombPowerUpImage, x, y);
+  };
+
+  
+  
 }
 
 // player 1 character (just a simple circle)
 const player1 = {
+  isAlive: true,
   row: 1,
   col: 1,
   numBombs: 1,
@@ -309,6 +335,7 @@ const player1 = {
 
 // player 2 character (just a simple circle)
 const player2 = {
+  isAlive: true,
   row: 11,
   col: 13,
   numBombs: 1,
@@ -390,9 +417,9 @@ document.addEventListener('keydown', function(e) {
   else if (e.which === 83) {
     row++;
   }
-  // g key (bomb)
+  // F key (bomb)
   else if (
-    e.which === 71 && !cells[row][col] &&
+    e.which === 70 && !cells[row][col] &&
     // count the number of bombs the player1 has placed
     entities.filter((entity) => {
       return entity.type === types.bomb && entity.owner === getPlayer
