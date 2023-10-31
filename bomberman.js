@@ -281,7 +281,10 @@ function Explosion(row, col, dir, center) {
   };
 }
 
-function PowerUps(row, col) {
+function SpawnPowerUps(row, col) {
+  this.row = row;
+  this.col = col;
+
 
 }
 
