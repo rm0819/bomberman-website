@@ -50,7 +50,7 @@ const extraBombPowerUpCtx = extraBombPowerUpCanvas.getContext('2d');
 extraBombPowerUpCanvas.width = extraBombPowerUpCanvas.height = grid;
 
 extraBombPowerUpImage = new Image();
-extraBombPowerUpImage.src = 'src/SB_Extra_Bomb.png'
+extraBombPowerUpImage.src = 'src/SB_Extra_Bomb.png';
 
 // create a mapping of object types
 const types = {
@@ -281,6 +281,10 @@ function Explosion(row, col, dir, center) {
   };
 }
 
+function PowerUps(row, col) {
+
+}
+
 // player 1 character (just a simple circle)
 const player1 = {
   row: 1,
@@ -410,25 +414,25 @@ document.addEventListener('keydown', function(e) {
   let row = getPlayer.row;
   let col = getPlayer.col;
 
-  // left arrow key
-  if (e.which === 37) {
+  // J key
+  if (e.which === 74) {
     col--;
   }
-  // up arrow key
-  else if (e.which === 38) {
+  // I key
+  else if (e.which === 73) {
     row--;
   }
-  // right arrow key
-  else if (e.which === 39) {
+  // L key
+  else if (e.which === 76) {
     col++;
   }
-  // down arrow key
-  else if (e.which === 40) {
+  // K key
+  else if (e.which === 75) {
     row++;
   }
-  // space key (bomb)
+  // ; key (bomb)
   else if (
-    e.which === 32 && !cells[row][col] &&
+    e.which === 186 && !cells[row][col] &&
     // count the number of bombs the player2 has placed
     entities.filter((entity) => {
       return entity.type === types.bomb && entity.owner === getPlayer
