@@ -284,23 +284,12 @@ function Explosion(row, col, dir, center) {
 }
 
 // Power up constructor
-function PowerUp(row, col, type) {
+function PowerUp(row, col) {
   this.row = row;
   this.col = col;
-  this.type = type;
 
   extraBombPowerUpImage = new Image();
   extraBombPowerUpImage.src = 'src/SB_Extra_Bomb.png';
-
-  //col * grid, row * grid
-  // extra bomb
-  if (type == 3) {
-    //entities.push(new PowerUp);
-  }
-  // fire power
-  else {
-    return;
-  }
 
   this.render = function() {
     const x = this.col * grid;
@@ -404,6 +393,9 @@ document.addEventListener('keydown', function(e) {
   // a key
   if (e.which === 65) {
     col--;
+  }
+  else if (e.which === 71) {
+    entities.push(new PowerUp(row, col));
   }
   // w key
   else if (e.which === 87) {
