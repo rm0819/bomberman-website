@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bomberman!</title>
+  <meta charset="UTF-8">
+  <style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  canvas {
+    background: forestgreen;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .announcement {
+    text-align: center;
+    color: black;
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 1rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0 0.2);
+    border-radius: 4px;
+    background: #a9a9a9
+  }
+  
+  button {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    background: forestgreen;
+  }
+
+  button:hover {
+    background: darkgreen;
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+  </style>
+</head>
+<body>
+  <div class="hidden" id="title">
+    <h1 style="color: white;">Bomberman!</h1>
+    <br/>
+    <br/>
+    <canvas width="960" height="832" id="game"></canvas>
+  </div>
+  <div class="banner announcement" id="announcement">
+    <div class="container">
+      <h1>Welcome to Bomberman!</h1>
+      <hr/>
+      <h3>Player 1 controls: WASD, G for bombs</h5>
+      <h3>Player 2 controls: up down left right, space for bombs</h5>
+      <button id="letsPlayButton" class="button">Have fun!</button>
+    </div>  
+  </div>
+  <script src="bomberman.js"></script> 
+</body>
+</html>
