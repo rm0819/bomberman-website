@@ -43,17 +43,6 @@ wallCtx.fillRect(0, 0, grid - 2, grid - 2);
 wallCtx.fillStyle = '#a9a9a9';
 wallCtx.fillRect(2, 2, grid - 4, grid - 4);
 
-/*
-// create a new canvas and draw the extra bomb powerup. then we can use
-// this canvas to draw the images later on
-const extraBombPowerUpCanvas = document.createElement('canvas');
-const extraBombPowerUpCtx = extraBombPowerUpCanvas.getContext('2d');
-extraBombPowerUpCanvas.width = extraBombPowerUpCanvas.height = grid;
-
-extraBombPowerUpImage = new Image();
-extraBombPowerUpImage.src = 'src/SB_Extra_Bomb.png';
-*/
-
 // create a mapping of object types
 const types = {
   wall: '▉',
@@ -149,6 +138,9 @@ function blowUpBomb(bomb) {
       // center of the explosion is the first iteration of the loop
       entities.push(new Explosion(row, col, dir, i === 0 ? true : false));
       cells[row][col] = null;
+
+      // If player is in the current cell then unalive them
+
 
       // bomb hit another bomb so blow that one up too
       if (cell === types.bomb) {
@@ -287,9 +279,22 @@ function Explosion(row, col, dir, center) {
 function PowerUp(row, col) {
   this.row = row;
   this.col = col;
+  this.alive = true;
+  this.type = types.extraBombPowerUp;
 
   extraBombPowerUpImage = new Image();
   extraBombPowerUpImage.src = 'src/SB_Extra_Bomb.png';
+
+  // update the power up each frame
+  this.update = function() {
+    if (
+      (player1.row == this.row && player1.col == this.col) || 
+      (player2.row == this.row && player2.col == this.col)
+      ) {
+        alive = false;
+        // call power up player function
+      }
+  }
 
   this.render = function() {
     const x = this.col * grid;
@@ -297,14 +302,11 @@ function PowerUp(row, col) {
 
     context.drawImage(extraBombPowerUpImage, x, y);
   };
-
-  
-  
 }
 
 // player 1 character (just a simple circle)
 const player1 = {
-  isAlive: true,
+  alive: true,
   row: 1,
   col: 1,
   numBombs: 1,
@@ -324,7 +326,7 @@ const player1 = {
 
 // player 2 character (just a simple circle)
 const player2 = {
-  isAlive: true,
+  alive: true,
   row: 11,
   col: 13,
   numBombs: 1,
@@ -407,6 +409,7 @@ document.addEventListener('keydown', function(e) {
   }
   // s key
   else if (e.which === 83) {
+    alert(player2.row);
     row++;
   }
   // F key (bomb)
