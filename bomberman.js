@@ -62,7 +62,7 @@ let entities = [];
 let cells = [];
 const template = [
   ['▉','▉','▉','▉','▉','▉','▉','▉','▉','▉','▉','▉','▉','▉','▉'],
-  ['▉','x','x',   ,   ,   ,   ,   ,   ,   ,   ,   ,'x','x','▉'],
+  ['▉','x' , 'x',   ,    ,    ,    ,    ,    ,    ,   ,    ,'x' ,'x' ,'▉'],
   ['▉','x','▉',   ,'▉',   ,'▉',   ,'▉',   ,'▉',   ,'▉','x','▉'],
   ['▉','x',   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,'x','▉'],
   ['▉',   ,'▉',   ,'▉',   ,'▉',   ,'▉',   ,'▉',   ,'▉',   ,'▉'],
@@ -100,9 +100,9 @@ function generateLevel() {
 function blowUpBomb(bomb) {
 
   // bomb has already exploded so don't blow up again
-  if (!bomb.alive) return;
+  if (!bomb.isAlive) return;
 
-  bomb.alive = false;
+  bomb.isAlive = false;
 
   // remove bomb from grid
   cells[bomb.row][bomb.col] = null;
@@ -141,6 +141,16 @@ function blowUpBomb(bomb) {
       cells[row][col] = null;
 
       // If player is in the current cell then unalive them
+      this.getPlayer1 = player1;
+      this.getPlayer2 = player2;
+      if (this.getPlayer1.row == row && this.getPlayer1.col == col) {
+        this.getPlayer1.isAlive = false;
+      }
+      if (this.getPlayer2.row == row && this.getPlayer2.col == col) {
+        this.getPlayer2.isAlive = false;
+      }
+
+      // If power-up is in the current cell then destroy it
 
 
       // bomb hit another bomb so blow that one up too
@@ -171,7 +181,7 @@ function Bomb(row, col, size, owner) {
   this.radius = grid * 0.4;
   this.size = size;    // the size of the explosion
   this.owner = owner;  // which player placed this bomb
-  this.alive = true;
+  this.isAlive = true;
   this.type = types.bomb;
 
   // bomb blows up after 3 seconds
@@ -228,7 +238,7 @@ function Explosion(row, col, dir, center) {
   this.row = row;
   this.col = col;
   this.dir = dir;
-  this.alive = true;
+  this.isAlive = true;
 
   // show explosion for 0.3 seconds
   this.timer = 300;
@@ -238,7 +248,7 @@ function Explosion(row, col, dir, center) {
     this.timer -= dt;
 
     if (this.timer <=0) {
-      this.alive = false;
+      this.isAlive = false;
     }
   };
 
@@ -280,7 +290,7 @@ function Explosion(row, col, dir, center) {
 function PowerUp(row, col, type) {
   this.row = row;
   this.col = col;
-  this.alive = true;
+  this.isAlive = true;
   this.type = type;
   this.getPlayer1 = player1;
   this.getPlayer2 = player2;
@@ -290,14 +300,12 @@ function PowerUp(row, col, type) {
 
   // update the power up each frame
   this.update = function() {
-    if ((this.getPlayer1.row == this.row && this.getPlayer1.col == this.col))
-    {
-      this.alive = false;
+    if ((this.getPlayer1.row == this.row && this.getPlayer1.col == this.col)) {
+      this.isAlive = false;
       PlayerPowerUp(this.type, this.getPlayer1)
     }
-    if ((this.getPlayer2.row == this.row && this.getPlayer2.col == this.col))
-    {
-      this.alive = false;
+    if ((this.getPlayer2.row == this.row && this.getPlayer2.col == this.col)) {
+      this.isAlive = false;
       PlayerPowerUp(this.type, this.getPlayer2)
     }
     
@@ -324,9 +332,9 @@ function PlayerPowerUp(type, player) {
   }
 }
 
-// player 1 character (just a simple circle)
+// player 1 character (just a simple circle, for now)
 const player1 = {
-  alive: true,
+  isAlive: true,
   row: 1,
   col: 1,
   numBombs: 1,
@@ -344,9 +352,9 @@ const player1 = {
   }
 }
 
-// player 2 character (just a simple circle)
+// player 2 character (just a simple circle, for now)
 const player2 = {
-  alive: true,
+  isAlive: true,
   row: 11,
   col: 13,
   numBombs: 1,
@@ -400,10 +408,20 @@ function loop(timestamp) {
   });
 
   // remove dead entities
-  entities = entities.filter((entity) => entity.alive);
+  entities = entities.filter((entity) => entity.isAlive);
 
   player1.render();
   player2.render();
+
+  // Check for dead players
+  if (player1.isAlive == false) {
+    alert("Player 2 wins!!!");
+    return;
+  }
+  if (player2.isAlive == false) {
+    alert("Player 1 wins!!!");
+    return;
+  }
 }
 
 // listen to keyboard events to move the player1
