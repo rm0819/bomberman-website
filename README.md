@@ -5,10 +5,13 @@ This repository includes all files you'll need to run a basic two player Bomberm
 ### Adding power-ups
 \+ Power-ups can currently be picked up, and will changed the players attributes.
 
-\- Power-ups do not drop naturally yet
+\- Power-ups do not drop naturally yet.
 
 ### Death upon explosion
-\- Neither players nor power-ups will die/disappear when exploded yet
+\+ Players will die when exploded, and the game will end, announcing a winner.
+
+\- End winning screen is a plain alert, which occurs before the explosion is rendered, and overall feels bad.
+\- Power-ups will not disappear when exploded yet.
 
 ***
 
