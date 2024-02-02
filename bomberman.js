@@ -48,7 +48,8 @@ const types = {
   wall: '▉',
   softWall: 1,
   bomb: 2,
-  extraBombPowerUp: 3
+  extraBombPowerUp: 3,
+  explosionExpanderPowerUp: 4
 };
 
 // keep track of all entities
@@ -276,32 +277,51 @@ function Explosion(row, col, dir, center) {
 }
 
 // Power up constructor
-function PowerUp(row, col) {
+function PowerUp(row, col, type) {
   this.row = row;
   this.col = col;
   this.alive = true;
-  this.type = types.extraBombPowerUp;
+  this.type = type;
+  this.getPlayer1 = player1;
+  this.getPlayer2 = player2;
 
-  extraBombPowerUpImage = new Image();
-  extraBombPowerUpImage.src = 'src/SB_Extra_Bomb.png';
+  PowerUpImage = new Image();
+  PowerUpImage.src = 'src/' + this.type + '.png';
 
   // update the power up each frame
   this.update = function() {
-    if (
-      (player1.row == this.row && player1.col == this.col) || 
-      (player2.row == this.row && player2.col == this.col)
-      ) {
-        alive = false;
-        // call power up player function
-      }
+    if ((this.getPlayer1.row == this.row && this.getPlayer1.col == this.col))
+    {
+      this.alive = false;
+      PlayerPowerUp(this.type, this.getPlayer1)
+    }
+    if ((this.getPlayer2.row == this.row && this.getPlayer2.col == this.col))
+    {
+      this.alive = false;
+      PlayerPowerUp(this.type, this.getPlayer2)
+    }
+    
   }
 
   this.render = function() {
     const x = this.col * grid;
     const y = this.row * grid;
 
-    context.drawImage(extraBombPowerUpImage, x, y);
+    context.drawImage(PowerUpImage, x, y, 64, 64);
   };
+}
+
+function PlayerPowerUp(type, player) {
+  this.getPlayer = player;
+
+  switch(type) {
+    case 3:
+      this.getPlayer.numBombs += 1;
+      break;
+    case 4:
+      this.getPlayer.bombSize += 1;
+      break;
+  }
 }
 
 // player 1 character (just a simple circle)
@@ -396,8 +416,9 @@ document.addEventListener('keydown', function(e) {
   if (e.which === 65) {
     col--;
   }
+  // g key
   else if (e.which === 71) {
-    entities.push(new PowerUp(row, col));
+    entities.push(new PowerUp(1, 1, 3));
   }
   // w key
   else if (e.which === 87) {
@@ -409,7 +430,6 @@ document.addEventListener('keydown', function(e) {
   }
   // s key
   else if (e.which === 83) {
-    alert(player2.row);
     row++;
   }
   // F key (bomb)
