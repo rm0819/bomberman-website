@@ -151,7 +151,11 @@ function blowUpBomb(bomb) {
       }
 
       // If power-up is in the current cell then destroy it
-
+      entities.forEach((ent) => {
+        for (let i = 0; i < length(entities); i++) {
+          //if (entities.)
+        }
+      })
 
       // bomb hit another bomb so blow that one up too
       if (cell === types.bomb) {
@@ -250,6 +254,8 @@ function Explosion(row, col, dir, center) {
     if (this.timer <=0) {
       this.isAlive = false;
     }
+
+
   };
 
   // render the explosion each frame
