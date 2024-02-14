@@ -5,6 +5,8 @@ This repository includes all files you'll need to run a basic two player Bomberm
 ### Adding power-ups
 \+ Power-ups can currently be picked up, and will changed the players attributes.
 
+\+ Power-ups will disappear when exploded.
+
 \- Power-ups do not drop naturally yet.
 
 ### Death upon explosion
