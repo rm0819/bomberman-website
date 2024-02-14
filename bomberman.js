@@ -153,7 +153,9 @@ function blowUpBomb(bomb) {
       // If power-up is in the current cell then destroy it
       entities.forEach((ent) => {
         for (let i = 0; i < length(entities); i++) {
-          //if (entities.)
+          if (entities[i].row == row && entities[i].col == col) {
+            entities[i].remove();
+          }
         }
       })
 
