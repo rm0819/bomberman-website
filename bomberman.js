@@ -48,8 +48,7 @@ const types = {
   wall: '▉',
   softWall: 1,
   bomb: 2,
-  extraBombPowerUp: 3,
-  explosionExpanderPowerUp: 4
+  powerUp: 3
 };
 
 // keep track of all entities
@@ -152,12 +151,12 @@ function blowUpBomb(bomb) {
 
       // If power-up is in the current cell then destroy it
       entities.forEach((ent) => {
-        for (let i = 0; i < length(entities); i++) {
-          if (entities[i].row == row && entities[i].col == col) {
-            entities[i].remove();
+        if (ent.type == types.powerUp) {
+          if (ent.row == row && ent.col == col) {
+            ent.isAlive = false;
           }
         }
-      })
+      });
 
       // bomb hit another bomb so blow that one up too
       if (cell === types.bomb) {
@@ -295,26 +294,27 @@ function Explosion(row, col, dir, center) {
 }
 
 // Power up constructor
-function PowerUp(row, col, type) {
+function PowerUp(row, col, power) {
   this.row = row;
   this.col = col;
   this.isAlive = true;
-  this.type = type;
+  this.power = power; 
+  this.type = types.powerUp;
   this.getPlayer1 = player1;
   this.getPlayer2 = player2;
 
   PowerUpImage = new Image();
-  PowerUpImage.src = 'src/' + this.type + '.png';
+  PowerUpImage.src = 'src/' + this.power + '.png';
 
   // update the power up each frame
   this.update = function() {
     if ((this.getPlayer1.row == this.row && this.getPlayer1.col == this.col)) {
       this.isAlive = false;
-      PlayerPowerUp(this.type, this.getPlayer1)
+      PlayerPowerUp(this.power, this.getPlayer1)
     }
     if ((this.getPlayer2.row == this.row && this.getPlayer2.col == this.col)) {
       this.isAlive = false;
-      PlayerPowerUp(this.type, this.getPlayer2)
+      PlayerPowerUp(this.power, this.getPlayer2)
     }
     
   }
@@ -327,10 +327,10 @@ function PowerUp(row, col, type) {
   };
 }
 
-function PlayerPowerUp(type, player) {
+function PlayerPowerUp(power, player) {
   this.getPlayer = player;
 
-  switch(type) {
+  switch(power) {
     case 3:
       this.getPlayer.numBombs += 1;
       break;
