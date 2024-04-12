@@ -343,6 +343,7 @@ function PlayerPowerUp(power, player) {
 // player 1 character (just a simple circle, for now)
 const player1 = {
   isAlive: true,
+  countDown: 5,
   row: 1,
   col: 1,
   numBombs: 1,
@@ -357,12 +358,26 @@ const player1 = {
     context.beginPath();
     context.arc(x, y, this.radius, 0, 2 * Math.PI);
     context.fill();
+  },
+  dead() {
+    const x = (this.col + 0.5) * grid;
+    const y = (this.row + 0.5) * grid;
+
+    context.save();
+    context.strokeStyle = 'red';
+    context.beginPath();
+    context.moveTo((x - this.radius), (y - this.radius));
+    context.lineTo((x + this.radius), (y + this.radius));
+    context.moveTo((x + this.radius), (y - this.radius));
+    context.lineTo((x - this.radius), (y + this.radius));
+    context.stroke();
   }
 }
 
 // player 2 character (just a simple circle, for now)
 const player2 = {
   isAlive: true,
+  countDown: 5,
   row: 11,
   col: 13,
   numBombs: 1,
@@ -377,6 +392,19 @@ const player2 = {
     context.beginPath();
     context.arc(x, y, this.radius, 0, 2 * Math.PI);
     context.fill();
+  },
+  dead() {
+    const x = (this.col + 0.5) * grid;
+    const y = (this.row + 0.5) * grid;
+
+    context.save();
+    context.strokeStyle = 'red';
+    context.beginPath();
+    context.moveTo((x - this.radius), (y - this.radius));
+    context.lineTo((x + this.radius), (y + this.radius));
+    context.moveTo((x + this.radius), (y - this.radius));
+    context.lineTo((x - this.radius), (y + this.radius));
+    context.stroke();
   }
 }
 
@@ -423,11 +451,23 @@ function loop(timestamp) {
 
   // Check for dead players
   if (player1.isAlive == false) {
-    alert("Player 2 wins!!!");
+    player1.countDown -= 1;
+    if (player1.countDown == 1) {
+      player1.dead();
+    }
+    else if (player1.countDown == 0) {
+      alert("Player 2 wins!!!");
+    }
     return;
   }
   if (player2.isAlive == false) {
-    alert("Player 1 wins!!!");
+    player2.countDown -= 1;
+    if (player2.countDown == 1) {
+      player2.dead();
+    }
+    else if (player2.countDown == 0) {
+      alert("Player 1 wins!!!");
+    }
     return;
   }
 }
