@@ -14,8 +14,6 @@ This repository includes all files you'll need to run a basic two player Bomberm
 
 \- End winning screen is a plain alert, which occurs before the explosion is rendered, and overall feels bad.
 
-\- Power-ups will not disappear when exploded yet.
-
 ***
 
 The basic bomberman game was forked from https://gist.github.com/straker/769fb461e066147ea16ac2cb9463beae. A big thanks to them for sharing that!
