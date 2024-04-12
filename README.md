@@ -12,7 +12,9 @@ This repository includes all files you'll need to run a basic two player Bomberm
 ### Death upon explosion
 \+ Players will die when exploded, and the game will end, announcing a winner.
 
-\- End winning screen is a plain alert, which occurs before the explosion is rendered, and overall feels bad.
+\+ Players will display a red X over their body when they die.
+
+\- End winning screen is a plain alert.
 
 ***
 
